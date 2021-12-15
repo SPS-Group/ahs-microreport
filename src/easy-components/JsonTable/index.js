@@ -79,6 +79,7 @@ import Form from '~/easy-components/Form';
 import GroupBy from './GroupBy';
 import SelectionCell from './CustomCells/SelectionCell';
 import { VALIDATE_AND_SELECT_TYPE } from './CustomActions/validateAndSelectRow';
+import AutoRefresh from './AutoRefresh';
 
 export const PageContext = createContext();
 
@@ -111,8 +112,7 @@ const JsonTable = (
   const modalDetailRef = useRef();
   const promptRef = useRef();
   const formRef = useRef();
-  const timerRef = useRef(null);
-  const [timerDisplay, setTimerDisplay] = useState(0);
+  const autoRefreshRef = useRef();
 
   const rowDataRef = useRef();
 
@@ -632,34 +632,6 @@ const JsonTable = (
     return null;
   }, [reportSettings.optionsGroup, tableProps.columns]);
 
-  const startTimer = useCallback(() => {
-    setTimerDisplay(parseInt(reportSettings.autoRefresh / 1000, 10));
-    timerRef.current = setInterval(() => {
-      setTimerDisplay((oldTimerDisplay) => {
-        if (oldTimerDisplay <= 0) {
-          onReloadData();
-          return parseInt(reportSettings.autoRefresh / 1000, 10);
-        }
-
-        return oldTimerDisplay - 1;
-      });
-    }, 1000);
-  }, [reportSettings.autoRefresh, onReloadData]);
-
-  useEffect(() => {
-    if (reportSettings.autoRefresh && onReloadData) {
-      startTimer();
-
-      return () => {
-        if (timerRef.current) {
-          clearInterval(timerRef.current);
-        }
-      };
-    }
-
-    return () => {};
-  }, [onReloadData, reportSettings.autoRefresh, startTimer]);
-
   return (
     <PageContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -730,10 +702,8 @@ const JsonTable = (
                 style={{ cursor: 'pointer', marginLeft: '1rem' }}
                 type="button"
                 onClick={() => {
-                  if (reportSettings.autoRefresh) {
-                    setTimerDisplay(
-                      parseInt(reportSettings.autoRefresh / 1000, 10)
-                    );
+                  if (reportSettings.autoRefresh && autoRefreshRef.current) {
+                    autoRefreshRef.current.reset();
                   }
                   onReloadData();
                 }}
@@ -741,7 +711,11 @@ const JsonTable = (
                 <ReloadIcon size={25} color="#353c44" />
               </button>
               {reportSettings && reportSettings.autoRefresh && (
-                <p>Recarregando em {timerDisplay}</p>
+                <AutoRefresh
+                  ref={autoRefreshRef}
+                  value={reportSettings.autoRefresh}
+                  onEnd={onReloadData}
+                />
               )}
             </Toolbar>
           )}
