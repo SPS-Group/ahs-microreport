@@ -17,11 +17,22 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "emitDeclarationOnly": false,
+    "baseUrl": ".",
+    "noEmit": false,
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
   "include": [
+    "index.ts",
     "src"
   ],
-  "extends": "./tsconfig.paths.json"
+  "exclude": [
+    "src/Test.tsx"
+  ]
 }

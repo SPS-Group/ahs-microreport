@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import * as Icons from 'react-icons/all';
+import * as Icons from 'react-icons';
 
 import { Container } from './styles';
 

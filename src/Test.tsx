@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ReportPage from '~/Components/ReportPage';
-import './App.css';
 import rawSettings from '~/tests/assets/report_page_settings';
 
 interface DataI {
