@@ -1,7 +1,6 @@
 import React, { useRef, useState, useCallback } from 'react';
 import JsonTable from '~/easy-components/JsonTable';
 import Loading from '~/easy-components/Loading';
-import Login from '~/Components/Login';
 
 interface Scopes {
   footerButtons?: object;
@@ -17,8 +16,8 @@ interface Props {
   loading?: void;
   loadData?(): Promise<any[]>;
   // eslint-disable-next-line no-unused-vars
-  onLogin?: (username: string, password: string) => void;
-  loginErrorMessage?: string;
+  // onLogin?: (username: string, password: string) => void;
+  // loginErrorMessage?: string;
 }
 
 const ReportPage: React.FC<Props> = function ReportPage({
@@ -28,15 +27,15 @@ const ReportPage: React.FC<Props> = function ReportPage({
   columns,
   scopes,
   loading,
-  onLogin,
-  loginErrorMessage,
+  // onLogin,
+  // loginErrorMessage,
   loadData,
 }: Props) {
   const [isLoading, showLoading] = useState(!!loading);
   const dataRef = useRef<Array<any>>(data);
-  const treatedSettings = settings
-    ? settings.replace(/\t/g, ' ').replace(/\n/g, ' ')
-    : '{}';
+  const treatedSettings = settings && typeof settings === 'string'
+  ? settings.replace(/\t/g, ' ').replace(/\n/g, ' ')
+  : '{}';
 
   const reportSettings = JSON.parse(treatedSettings);
 
@@ -57,23 +56,13 @@ const ReportPage: React.FC<Props> = function ReportPage({
   // eslint-disable-next-line react/jsx-props-no-spreading
   return (
     <div style={{ height: '100%' }}>
-      {loggedIn ? (
+      {loggedIn && (
         <JsonTable
           data={dataRef.current}
-          columns={columns}
           scopes={scopes}
           reportSettings={reportSettings}
           showLoading={showLoading}
           onReloadData={callLoadData}
-        />
-      ) : (
-        <Login
-          onLogin={(username: string, password: string) => {
-            if (onLogin) {
-              onLogin(username, password);
-            }
-          }}
-          loginErrorMessage={loginErrorMessage}
         />
       )}
       <div id="modal" />
