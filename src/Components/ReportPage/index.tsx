@@ -10,7 +10,7 @@ interface Scopes {
 interface Props {
   // loggedIn?: boolean;
   data: Array<any>;
-  settings?: string;
+  settings: string;
   scopes?: Scopes;
   loading?: void;
   loadData?(): Promise<any[]>;

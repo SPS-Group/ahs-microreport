@@ -10,7 +10,7 @@ interface JsonTableProps {
   pdfFontSize?: number;
   pdfOrientation?: string;
   groups?: Array<any>;
-  reportSettings?: Array<any>;
+  reportSettings: Array<any>;
   onRefresh?: Array<any>;
   showLoading: Dispatch<SetStateAction<boolean>>;
   onSelect?(row: object): void;
