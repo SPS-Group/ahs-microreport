@@ -87,7 +87,6 @@ const JsonTable = (
     fileName,
     subTitle,
     data,
-    columns,
     pdfFontSize = 7,
     pdfOrientation = 'portrait',
     groups = [],
@@ -130,27 +129,24 @@ const JsonTable = (
     />
   );
 
-  const columnsWithSettings = columns.map((c) => {
-    const settingsFounded = reportSettings.columns
-      ? reportSettings.columns.find(
-          (columnSettings) => columnSettings.name === c.key
-        )
-      : undefined;
-    return { ...c, settings: { ...c.settings, ...settingsFounded } };
-  });
+  // const columnsWithSettings = columns.map((c) => {
+  //   const settingsFounded = reportSettings.columns
+  //     ? reportSettings.columns.find(
+  //         (columnSettings) => columnSettings.name === c.key
+  //       )
+  //     : undefined;
+  //   return { ...c, settings: { ...c.settings, ...settingsFounded } };
+  // });
 
   const columnsOnSettings = reportSettings.columns
-    ? [...reportSettings.columns]
-        .filter(
-          (columnSettings) =>
-            ![...columns].filter(
-              (columnFromProps) => columnFromProps.key === columnSettings.name
-            ).length
-        )
-        .map((c) => ({ key: c.name, title: c.title, settings: { ...c } }))
+    ? [...reportSettings.columns].map((c) => ({
+        key: c.name,
+        title: c.title,
+        settings: { ...c },
+      }))
     : undefined;
 
-  const columnsTreated = [...columnsWithSettings, ...columnsOnSettings];
+  const columnsTreated = [...columnsOnSettings];
 
   const [tableProps, changeTableProps] = useState({
     columns: columnsTreated,
@@ -392,7 +388,7 @@ const JsonTable = (
   useEffect(() => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, columns]);
+  }, [data, reportSettings]);
 
   const exportClick = (orientation) => {
     const doc = new jsPDF(orientation);

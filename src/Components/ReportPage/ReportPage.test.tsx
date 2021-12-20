@@ -5,9 +5,10 @@ import settings from '~/tests/assets/report_page_settings';
 const parsedSettings = settings.replace(/\t/g, ' ').replace(/\n/g, ' ');
 render(
   <ReportPage
-    data={[]}
-    columns={JSON.parse(parsedSettings).columns}
-    settings={JSON.parse(parsedSettings)}
+    loggedIn
+    data={[{id: 1, 'name': 'John',}]}
+    columns={[{key: 'id', title: 'ID'}, {key: 'name', title: 'NOME'}]}
+    settings={parsedSettings}
   />
 );
 

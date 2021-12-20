@@ -10,7 +10,6 @@ interface Scopes {
 interface Props {
   loggedIn?: boolean;
   data: Array<any>;
-  columns: Array<any>;
   settings?: string;
   scopes?: Scopes;
   loading?: void;
@@ -24,7 +23,6 @@ const ReportPage: React.FC<Props> = function ReportPage({
   loggedIn,
   settings,
   data,
-  columns,
   scopes,
   loading,
   // onLogin,
