@@ -36,10 +36,9 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "tsc -p tsconfig.production.json && node_modules/.bin/tscpaths -p tsconfig.production.json -s ./src -o ./dist/src",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "tsc": "tsc && node_modules/.bin/tscpaths -p tsconfig.json -s ./src -o ./dist/src",
     "tsc:post": "node_modules/.bin/tscpaths -p tsconfig.json -s ./src -o ./dist/src"
   },
   "eslintConfig": {
