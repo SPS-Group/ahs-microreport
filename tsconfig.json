@@ -30,7 +30,8 @@
   },
   "include": [
     "index.ts",
-    "src"
+    "src",
+    "assets"
   ],
   "exclude": [
     "src/Test.tsx"
