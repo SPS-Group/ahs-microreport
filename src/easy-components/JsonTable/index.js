@@ -138,15 +138,13 @@ const JsonTable = (
   //   return { ...c, settings: { ...c.settings, ...settingsFounded } };
   // });
 
-  const columnsOnSettings = reportSettings.columns
+  const columnsTreated = reportSettings.columns
     ? [...reportSettings.columns].map((c) => ({
         key: c.name,
         title: c.title,
         settings: { ...c },
       }))
-    : undefined;
-
-  const columnsTreated = [...columnsOnSettings];
+    : [];
 
   const [tableProps, changeTableProps] = useState({
     columns: columnsTreated,

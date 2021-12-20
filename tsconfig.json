@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -25,13 +21,6 @@
     "baseUrl": ".",
     "noEmit": true
   },
-  "include": [
-    "index.ts",
-    "src",
-    "assets"
-  ],
-  "exclude": [
-    "src/Test.tsx"
-  ],
-  "extends": "./tsconfig.override-tests.json"
+  "include": ["index.ts", "src", "assets"],
+  "exclude": ["src/Test.tsx"]
 }
