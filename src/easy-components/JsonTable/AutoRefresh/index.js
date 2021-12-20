@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, {
   useRef,
   useState,
@@ -6,7 +7,7 @@ import React, {
   useImperativeHandle,
   forwardRef,
 } from 'react';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 
 // import { Container } from './styles';
 
@@ -47,14 +48,14 @@ function AutoRefresh({ value, onEnd }, ref) {
   return <p>Recarregando em {timerDisplay}</p>;
 }
 
-AutoRefresh.propTypes = {
-  value: propTypes.number,
-  onEnd: propTypes.func,
-};
+// AutoRefresh.propTypes = {
+//   value: propTypes.number,
+//   onEnd: propTypes.func,
+// };
 
-AutoRefresh.defaultProps = {
-  value: 0,
-  onEnd: () => {},
-};
+// AutoRefresh.defaultProps = {
+//   value: 0,
+//   onEnd: () => {},
+// };
 
 export default forwardRef(AutoRefresh);
