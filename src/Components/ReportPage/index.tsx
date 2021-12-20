@@ -8,7 +8,7 @@ interface Scopes {
 }
 
 interface Props {
-  loggedIn?: boolean;
+  // loggedIn?: boolean;
   data: Array<any>;
   settings?: string;
   scopes?: Scopes;
@@ -20,7 +20,7 @@ interface Props {
 }
 
 const ReportPage: React.FC<Props> = function ReportPage({
-  loggedIn,
+  // loggedIn,
   settings,
   data,
   scopes,
@@ -31,9 +31,10 @@ const ReportPage: React.FC<Props> = function ReportPage({
 }: Props) {
   const [isLoading, showLoading] = useState(!!loading);
   const dataRef = useRef<Array<any>>(data);
-  const treatedSettings = settings && typeof settings === 'string'
-  ? settings.replace(/\t/g, ' ').replace(/\n/g, ' ')
-  : '{}';
+  const treatedSettings =
+    settings && typeof settings === 'string'
+      ? settings.replace(/\t/g, ' ').replace(/\n/g, ' ')
+      : '{}';
 
   const reportSettings = JSON.parse(treatedSettings);
 
@@ -54,15 +55,13 @@ const ReportPage: React.FC<Props> = function ReportPage({
   // eslint-disable-next-line react/jsx-props-no-spreading
   return (
     <div style={{ height: '100%' }}>
-      {loggedIn && (
-        <JsonTable
-          data={dataRef.current}
-          scopes={scopes}
-          reportSettings={reportSettings}
-          showLoading={showLoading}
-          onReloadData={callLoadData}
-        />
-      )}
+      <JsonTable
+        data={dataRef.current}
+        scopes={scopes}
+        reportSettings={reportSettings}
+        showLoading={showLoading}
+        onReloadData={callLoadData}
+      />
       <div id="modal" />
       <Loading isLoading={isLoading} />
     </div>
