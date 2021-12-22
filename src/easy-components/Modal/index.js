@@ -6,19 +6,23 @@ import { Container, Content } from './styles';
 
 function Modal({ isOpened, setOpenModal, direction, children, onClose }) {
   const [open, setOpen] = useState(false);
-  const modalRoot = document.getElementById('modal');
-  const el = document.createElement('div');
+  const [el, setEl] = useState();
 
   useEffect(() => {
+    const modalRoot = document.getElementById('modal');
+    const elCreated = document.createElement('div');
+    setEl(elCreated);
+
     if (modalRoot) {
-      modalRoot.appendChild(el);
+      modalRoot.appendChild(elCreated);
     }
     return () => {
       if (modalRoot) {
-        modalRoot.removeChild(el);
+        modalRoot.removeChild(elCreated);
       }
     };
-  }, [el, modalRoot]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isOpened) {

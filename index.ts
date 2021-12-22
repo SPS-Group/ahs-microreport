@@ -1,4 +1,4 @@
-import { ReportPage, Login } from './src';
+import { ReportPage } from './src';
 
-export { ReportPage };
-export { Login };
+export default ReportPage;
+// export { Login };

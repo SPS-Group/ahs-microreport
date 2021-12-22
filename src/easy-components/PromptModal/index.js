@@ -27,11 +27,9 @@ const PromptModal = ({ direction }, ref) => {
     onConfirm: () => {},
     onCancel: () => {},
   });
+  const [el, setEl] = useState();
 
   const textRef = useRef(null);
-
-  const modalRoot = document.getElementById('modal');
-  const el = document.createElement('div');
 
   function handleClose() {
     setState({
@@ -55,14 +53,17 @@ const PromptModal = ({ direction }, ref) => {
   }));
 
   useEffect(() => {
+    const modalRoot = document.getElementById('modal');
+    const elCreated = document.createElement('div');
+    setEl(elCreated);
     if (modalRoot) {
-      modalRoot.appendChild(el);
+      modalRoot.appendChild(elCreated);
       return () => {
-        modalRoot.removeChild(el);
+        modalRoot.removeChild(elCreated);
       };
     }
     return () => {};
-  }, [el, modalRoot]);
+  }, []);
 
   function getComponentType() {
     switch (state.type) {
